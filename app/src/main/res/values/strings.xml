@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">LoginRegis</string>
     <string name="delete_buttoon">delete</string>
+    <string name="deskripsi">deskripsi</string>
+    <string name="title_history">History</string>
+    <string name="title_generate">Generate</string>
+    <string name="title_analyze">Analyze</string>
+    <string name="title_galery">Galery</string>
+    <string name="title_save">Save</string>
+    <string name="title_hasil_analyze">Hasil Anlyze</string>
+    <string name="title_link_article">Link Article</string>
+
+
 </resources>
