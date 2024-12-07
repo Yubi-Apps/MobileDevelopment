@@ -1,31 +1,32 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="380dp"
-    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="16dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp"
-    android:layout_gravity="center"
-    android:layout_margin="8dp">
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/itemCardLayout"
-        android:layout_width="370dp"
-        android:layout_height="101dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-
-        android:layout_gravity="center"
-        android:padding="16dp">
+        android:background="@color/white"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/ivIcon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginStart="1dp"
+            android:layout_marginStart="12dp"
             android:src="@drawable/article_icon"
-            android:padding="8dp" />
+            android:padding="8dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -33,36 +34,42 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="25dp">
 
             <TextView
                 android:id="@+id/tvCardTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/judul_artikel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:textSize="20sp"
                 android:fontFamily="@font/poppins_bold"
                 android:textStyle="bold"
-                android:textColor="@color/primary" />
+                android:textColor="@color/primary"/>
 
             <TextView
                 android:id="@+id/tvCardSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/description_artikel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="10sp"
                 android:textColor="@color/primary_description"
-                tools:ignore="SmallSp" />
+                tools:ignore="SmallSp"/>
+
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivArrow"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="10dp"
             android:layout_gravity="center"
+            android:layout_marginEnd="22dp"
             android:src="@drawable/arrow_icon" />
+
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
+

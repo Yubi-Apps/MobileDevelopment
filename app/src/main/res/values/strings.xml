@@ -6,8 +6,15 @@
     <string name="judul_artikel">Article</string>
     <string name="title_mulai">Mulai</string>
     <string name="title_lewati">Lewati</string>
+    <string name="title_analyze">Analyze</string>
+    <string name="title_galery">Galery</string>
+    <string name="title_generate">Generate</string>
     <string name="search_Article">Cari Article</string>
     <string name="image_article">Gambar Article</string>
+    <string name="title_save">Save</string>
+    <string name="title_hasil_analyze">Hasil Anlyze</string>
+    <string name="title_link_article">Link Article</string>
+    <string name="deskripsi">deskripsi</string>
     <string name="description_artikel">Cari artikel yang sesuai</string>
     <string name="description_Card_artikel">Lorem Ipsum is simply dummy text\nof the printing and typesetting industry.</string>
     <string name="judul_analyze">Analyze</string>

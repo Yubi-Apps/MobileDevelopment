@@ -4,29 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.article.ArticleFragment">
 
-<!--    &lt;!&ndash; AppBarLayout untuk Toolbar &ndash;&gt;-->
-<!--    <com.google.android.material.appbar.AppBarLayout-->
-<!--        android:id="@+id/appBarLayout2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:theme="@style/ThemeOverlay.Material3.BottomAppBar"-->
-<!--        tools:ignore="MissingConstraints">-->
-
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
-<!--            app:title="Articles"-->
-<!--            app:titleTextColor="@color/grey" />-->
-<!--    </com.google.android.material.appbar.AppBarLayout>-->
-
-    <!-- AppBarLayout dengan MaterialToolbar -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appBarLayout2"
+        android:background="@color/white"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -34,9 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:titleCentered="true"
-            app:title="Articles"
+            app:title="Article"
             app:titleTextColor="@color/black_60" />
     </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.search.SearchBar
         android:id="@+id/searchBar"
         android:layout_width="0dp"
@@ -77,9 +63,9 @@
             android:id="@+id/rvArticle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="4dp"/>
 
     </LinearLayout>
 

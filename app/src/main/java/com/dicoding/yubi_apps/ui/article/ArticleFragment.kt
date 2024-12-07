@@ -43,9 +43,51 @@ class ArticleFragment : Fragment() {
 
         // Dummy data untuk testing
         val articles = listOf(
-            Article("Lorem Ipsum is simply dummy text\nof the printing and typesetting industry.", R.drawable.article),
-            Article("Lorem Ipsum is simply dummy text\nof the printing and typesetting industry.", R.drawable.article),
-            Article("Lorem Ipsum is simply dummy text\nof the printing and typesetting industry.", R.drawable.article)
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 1",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 2",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 3",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 4",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 5",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 6",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 7",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 8",
+                imageResId = R.drawable.article
+            ),
+            Article(
+                description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                judul = "Judul Artikel 9",
+                imageResId = R.drawable.article
+            )
         )
 
         adapter = ArticleAdapter(articles)

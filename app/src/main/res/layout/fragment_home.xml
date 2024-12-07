@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/white"
-
     tools:context=".ui.home.HomeFragment">
 
     <!-- Header Section -->
@@ -27,7 +26,7 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:padding="60dp"
-            android:paddingStart="10dp"
+            android:paddingStart="5dp"
             android:paddingEnd="10dp"
             tools:ignore="UselessParent">
 
@@ -38,7 +37,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/Welcome_Home"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="25sp" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
@@ -47,7 +46,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/Home_description"
                 android:textColor="@color/gray"
-                android:textSize="11sp" />
+                android:textSize="13sp" />
 
         </LinearLayout>
 
@@ -58,8 +57,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:orientation="vertical">
 
         <!-- Article Card -->
@@ -84,5 +81,4 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp" />
     </LinearLayout>
-
 </LinearLayout>

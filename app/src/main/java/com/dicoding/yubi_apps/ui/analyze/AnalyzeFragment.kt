@@ -16,4 +16,16 @@ class AnalyzeFragment : Fragment() {
         // Inflate layout untuk fragment
         return inflater.inflate(R.layout.fragment_analyze, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // Ambil referensi ke MaterialToolbar
+        val toolbar: com.google.android.material.appbar.MaterialToolbar = view.findViewById(R.id.toolbar)
+
+        // Atur navigasi kembali (jika diperlukan)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back) // Tambahkan ikon back
+        toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed() // Kembali ke fragment sebelumnya
+        }
+    }
 }
