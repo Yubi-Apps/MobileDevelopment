@@ -9,5 +9,11 @@ import com.dicoding.yubi_apps.R
 
 
 class AnalyzeFragment : Fragment() {
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate layout untuk fragment
+        return inflater.inflate(R.layout.fragment_analyze, container, false)
+    }
 }

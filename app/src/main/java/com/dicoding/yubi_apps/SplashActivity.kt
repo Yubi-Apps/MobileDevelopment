@@ -29,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity() {
-        Intent(this, MainActivity::class.java).also {
+        Intent(this, AnotherActivity::class.java).also {
             startActivity(it)
             finish()
         }

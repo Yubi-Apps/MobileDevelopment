@@ -26,9 +26,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-        buildFeatures {
-            compose = true
-        }
         composeOptions {
             kotlinCompilerExtensionVersion = "1.5.14"
         }
@@ -39,6 +36,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -51,10 +52,15 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.mediation.test.suite)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.filament.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
+
     //compose
     implementation (libs.androidx.ui.v150)
     implementation (libs.androidx.material3.v111)

@@ -1,123 +1,83 @@
 package com.dicoding.yubi_apps
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.get
-import androidx.viewpager2.widget.ViewPager2
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.dicoding.yubi_apps.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var ButtonMulai: Button
-    private lateinit var ButtonLewati: Button
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
-    private val introSliderAdapter = IntroSliderAdapter(
-        listOf(
-            IntroSlide(
-                "Solusi pintar untuk\nPertanian lebih baik",
-                "Aplikasi ini dirancang untuk membantu petani\nmendeteksi hama pada tanaman umbi-umbian\nsecara cepat dan akurat, menggunakan teknologi\npembelajaran mesin.",
-                R.drawable.onboarding1
-            ),
-            IntroSlide(
-                "Deteksi hama dengan\nTeknologi",
-                "Temukan hama yang menyerang tanaman\numbi-umbian Anda dan dapatkan informasi\nhama yang akurat dari aplikasi.",
-                R.drawable.onboarding2
-            ),
-            IntroSlide(
-                "Cepat dan mudah\ndigunakan",
-                "Cukup unggah foto, dan biarkan teknologi\ncerdas kami mengidentifikasi hama dengan\ncepat.",
-                R.drawable.onboarding3
-            ),
-            IntroSlide(
-                "Dirancang untuk\nPetani Indonesia",
-                "Mitra terbaik petani Indonesia untuk mengenali\nancaman pada tanaman dan meningkatkan\nketahanan pangan nasional",
-                R.drawable.onboarding4
-            )
-        )
-    )
+//    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val introSliderViewPager = findViewById<ViewPager2>(R.id.introSliderViewPager)
-        ButtonMulai = findViewById(R.id.ButtonMulai)
-        ButtonLewati = findViewById(R.id.ButtonLewati)
-        introSliderViewPager.adapter = introSliderAdapter
-        setupIndicators()
-        setCurrentIndicator(0)
-        introSliderViewPager.registerOnPageChangeCallback(object :
-        ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                setCurrentIndicator(position)
-            }
-        })
-        ButtonMulai.setOnClickListener {
-            if(introSliderViewPager.currentItem +1 < introSliderAdapter.itemCount){
-                introSliderViewPager.currentItem += 1
-            }else{
-                Intent(applicationContext,AnotherActivity::class.java).also {
-                    startActivity(it)
-                }
-            }
-        }
-        ButtonLewati.setOnClickListener {
-            Intent(applicationContext,AnotherActivity::class.java).also {
-                startActivity(it)
-                finish()
-            }
-        }
+
+        // Gunakan View Binding untuk mengakses layout
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Set up the BottomNavigationView with NavController
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
+
+        // Set up the BottomNavigationView with the NavController
+        binding.navView.setupWithNavController(navController)
+
+//        val navView: BottomNavigationView = binding.navView
+//
+//        val navHostFragment =
+//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+//        navController = navHostFragment.navController
+//
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.navigation_home,
+//                R.id.navigation_History
+//            )
+//        )
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        navView.setupWithNavController(navController)
+
+//        // Mengakses elemen UI melalui binding
+//        binding.articleCard.setOnClickListener {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.fragmentContainer, ArticleFragment())
+//                .addToBackStack(null)
+//                .commit()
+//        }
+//
+//        binding.analyzeCard.setOnClickListener {
+//            replaceFragment(AnalyzeFragment())
+//        }
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    private fun setupIndicators(){
-        val indicators = arrayOfNulls<ImageView>(introSliderAdapter.itemCount)
-        val layoutParams : LinearLayout.LayoutParams =
-            LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-        layoutParams.setMargins(8,0,8,0)
-        for (i in indicators.indices){
-            indicators[i] = ImageView(applicationContext)
-            indicators[i].apply {
-                this?.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.indicator_inactive
-                    )
-                )
-                    this?.layoutParams = layoutParams
-            }
-            val indicatorContainer = findViewById<LinearLayout>(R.id.indicatorContainer)
-                indicatorContainer.addView(indicators[i])
-        }
-    }
+//    // Fungsi untuk mengganti fragment
+//    private fun replaceFragment(fragment: Fragment) {
+//        val transaction = supportFragmentManager.beginTransaction()
+//        transaction.replace(R.id.fragmentContainer, fragment) // Pastikan fragmentContainer ada di layout
+//        transaction.addToBackStack(null) // Tambahkan ke back stack
+//        transaction.commit()
+//    }
+//
+//    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+//    override fun onBackPressed() {
+//        if (supportFragmentManager.backStackEntryCount > 0) {
+//            supportFragmentManager.popBackStack() // Kembali ke fragment sebelumnya
+//        } else {
+//            super.onBackPressed() // Keluar dari aplikasi
+//        }
+//    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 
-    private fun setCurrentIndicator(index: Int){
-        val indicatorContainer = findViewById<LinearLayout>(R.id.indicatorContainer)
-        val childCount = indicatorContainer.childCount
-        for (i in 0 until childCount){
-            val imageView =indicatorContainer[i] as ImageView
-            if(i == index){
-                imageView.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.indicator_active
-                    )
-                )
-            }else{
-                imageView.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.indicator_inactive
-                    )
-                )
-            }
-        }
-    }
 }
 

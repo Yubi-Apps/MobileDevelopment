@@ -9,9 +9,10 @@
     <string name="search_Article">Cari Article</string>
     <string name="image_article">Gambar Article</string>
     <string name="description_artikel">Cari artikel yang sesuai</string>
+    <string name="description_Card_artikel">Lorem Ipsum is simply dummy text\nof the printing and typesetting industry.</string>
     <string name="judul_analyze">Analyze</string>
     <string name="description_analyze">Cek hama tanaman</string>
-    <string name="Welcome_Home">Selamat Datang Di Apps yubi</string>
+    <string name="Welcome_Home">Selamat Datang Di Apps Yubi</string>
     <string name="Home_description">Semoga hari ini memberikan informasi\nyang baik untuk kesehatan pertanianmu!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

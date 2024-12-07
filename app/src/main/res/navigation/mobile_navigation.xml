@@ -8,20 +8,34 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.dicoding.yubi_apps.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_analyzeFragment"
+            app:destination="@id/analyzeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_History"
         android:name="com.dicoding.yubi_apps.ui.home.HomeFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.dicoding.yubi_apps.ui.article.ArticleFragment"
+        android:label="ArticleFragment"
+        tools:layout="@layout/fragment_article" />
 
     <fragment
-        android:id="@+id/navigation_Profile"
-        android:name="com.dicoding.yubi_apps.ui.home.HomeFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/analyzeFragment"
+        android:name="com.dicoding.yubi_apps.ui.analyze.AnalyzeFragment"
+        android:label="AnalyzeFragment"
+        tools:layout="@layout/fragment_analyze" />
+
 
 
 </navigation>

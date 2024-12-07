@@ -7,4 +7,59 @@
     android:layout_height="match_parent"
     tools:context=".AnotherActivity">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/introSliderViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/indicatorContainer"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/indicatorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonMulai"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ButtonMulai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.Button"
+        android:background="@drawable/button_background"
+        android:layout_marginBottom="130dp"
+        android:text="@string/title_mulai"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="visible"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ButtonLewati"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.Button"
+        android:background="@drawable/button_background_lewati"
+        android:layout_marginBottom="60dp"
+        android:text="@string/title_lewati"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:visibility="visible"
+        android:fontFamily="@font/poppins_bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
