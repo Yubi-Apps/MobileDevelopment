@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
+
 //    // Fungsi untuk mengganti fragment
 //    private fun replaceFragment(fragment: Fragment) {
 //        val transaction = supportFragmentManager.beginTransaction()
