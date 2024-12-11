@@ -7,4 +7,5 @@
     <color name="primary">#179C5B</color>
     <color name="primary_description">#35635B</color>
     <color name="gray">#303030</color>
+    <color name="red">#CF0000</color>
 </resources>

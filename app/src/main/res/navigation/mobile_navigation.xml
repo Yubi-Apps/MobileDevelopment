@@ -25,11 +25,6 @@
         android:label="ArticleFragment"
         tools:layout="@layout/fragment_article" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/analyzeFragment"-->
-<!--        android:name="com.dicoding.yubi_apps.ui.analyze.AnalyzeFragment"-->
-<!--        android:label="AnalyzeFragment"-->
-<!--        tools:layout="@layout/fragment_analyze" />-->
     <fragment
         android:id="@+id/analyzeFragment"
         android:name="com.dicoding.yubi_apps.ui.analyze.AnalyzeFragment"
@@ -40,10 +35,7 @@
             app:destination="@id/generateFragment">
         </action>
     </fragment>
-<!--    <fragment-->
-<!--        android:id="@+id/generateFragment"-->
-<!--        android:name="com.dicoding.yubi_apps.ui.generate.GenerateFragment"-->
-<!--        android:label="GenerateFragment"/>-->
+
     <fragment
         android:id="@+id/generateFragment"
         android:name="com.dicoding.yubi_apps.ui.generate.GenerateFragment"
@@ -61,6 +53,7 @@
         android:name="com.dicoding.yubi_apps.ui.history.HistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" />
+
 
 
 

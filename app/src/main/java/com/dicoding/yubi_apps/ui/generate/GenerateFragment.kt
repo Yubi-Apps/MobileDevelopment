@@ -2,20 +2,22 @@ package com.dicoding.yubi_apps.ui.generate
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.dicoding.yubi_apps.R
-import com.dicoding.yubi_apps.data.api.retrofit.ApiConfig
-import com.dicoding.yubi_apps.data.repository.UploadRepository
-import com.dicoding.yubi_apps.databinding.ActivityMainBinding
+import com.dicoding.yubi_apps.data.DataRiwayat.AppDatabase
+import com.dicoding.yubi_apps.data.DataRiwayat.PredictionHistory
+import com.dicoding.yubi_apps.data.repository.HistoryRepository
 import com.dicoding.yubi_apps.databinding.FragmentGenerateBinding
-import com.dicoding.yubi_apps.ui.UploadViewModel
-import com.dicoding.yubi_apps.ui.UploadViewModelFactory
+import com.dicoding.yubi_apps.ui.HistoryViewModel
+import com.dicoding.yubi_apps.ui.HistoryViewModelFactory
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class GenerateFragment : Fragment() {
@@ -23,13 +25,16 @@ class GenerateFragment : Fragment() {
     private var _binding: FragmentGenerateBinding? = null
     private val binding get() = _binding!!
     private var uri: Uri? = null
-    // Buat instance repository
-    private val repository by lazy { UploadRepository(ApiConfig.getApiService()) }
 
-    // Buat instance ViewModel menggunakan factory
-    private val viewModel: UploadViewModel by lazy {
-        val factory = UploadViewModelFactory(repository)
-        ViewModelProvider(this, factory)[UploadViewModel::class.java]
+    private val historyRepository by lazy {
+        HistoryRepository(
+            AppDatabase.getDatabase(requireContext()).predictionHistoryDao()
+        )
+    }
+
+    private val historyViewModel: HistoryViewModel by lazy {
+        val historyFactory = HistoryViewModelFactory(historyRepository)
+        ViewModelProvider(this, historyFactory)[HistoryViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -43,10 +48,14 @@ class GenerateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val bottomNavigationView = requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)
+        val bottomNavigationView =
+            requireActivity().findViewById<BottomNavigationView>(
+                R.id.nav_view
+            )
         bottomNavigationView.visibility = View.GONE
 
-        val toolbar: com.google.android.material.appbar.MaterialToolbar = view.findViewById(R.id.toolbar)
+        val toolbar: MaterialToolbar =
+            view.findViewById(R.id.toolbar)
 
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
@@ -60,9 +69,20 @@ class GenerateFragment : Fragment() {
         binding.textView.text = "predicted_class = ${predictedClass}"
         binding.previewImageView.setImageURI(Uri.parse(imageUri))
 
+        binding.savebutton.setOnClickListener {
+            saveHistory(Uri.parse(imageUri), predictedClass)
+            Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.navigation_home)
+        }
+
     }
 
-
+    private fun saveHistory(imageUri: Uri, result: String) {
+        val history = PredictionHistory(
+            imagePath = imageUri.toString(), result = result
+        )
+        historyViewModel.insert(history)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

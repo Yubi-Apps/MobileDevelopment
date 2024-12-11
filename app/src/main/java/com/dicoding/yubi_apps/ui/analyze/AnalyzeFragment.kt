@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.dicoding.yubi_apps.R
@@ -93,11 +92,6 @@ class AnalyzeFragment : Fragment() {
         }
 
         binding.analyzeButton.setOnClickListener {
-//            if (uri == null) {
-//                Toast.makeText(context, "Please select an image first!", Toast.LENGTH_SHORT).show()
-//            } else {
-//                uploadImageToServer()
-//            }
             if (isAnalyzed) {
                 Toast.makeText(context, "Analysis already completed!", Toast.LENGTH_SHORT).show()
             } else {

@@ -22,6 +22,8 @@ materialVersion = "1.9.0-alpha"
 navigationCompose = "2.8.4"
 playServicesAds = "23.6.0"
 retrofit = "2.11.0"
+roomRuntime = "2.6.1"
+roomCompiler = "2.6.1"
 ucrop = "2.2.8"
 ui = "1.7.5"
 uiVersion = "1.5.0"
@@ -42,6 +44,9 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationCompose" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationCompose" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationCompose" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
 androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiVersion" }
 androidx-ui-v150 = { module = "androidx.compose.ui:ui", version.ref = "uiVersion" }

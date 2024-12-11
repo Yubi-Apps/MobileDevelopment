@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dicoding.yubi_apps.Response
 import com.dicoding.yubi_apps.data.repository.UploadRepository
 import kotlinx.coroutines.Dispatchers
@@ -44,4 +45,6 @@ class UploadViewModel(private val repository: UploadRepository) : ViewModel() {
             }
         }
     }
+
+
 }

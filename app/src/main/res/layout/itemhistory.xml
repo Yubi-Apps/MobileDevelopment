@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="16dp"
-    android:checkable="true"
-    android:clickable="true"
-    android:focusable="true">
+    style="@style/Widget.Material3.CardView.Elevated"
+    android:layout_gravity="center">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        android:padding="8dp">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="18dp">
 
         <ImageView
-            android:id="@+id/ivIcon1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/picture"
-            android:adjustViewBounds="true"/>
-        <!--        android:contentDescription="@string/image_event"-->
+            android:id="@+id/savedImg"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:src="@tools:sample/avatars" />
 
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/savedImg"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/title_history"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/savedImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/Result"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/savedImg"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
-            <TextView
-                android:id="@+id/tvJudul1"
-                tools:text="Sample Event Title Long"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/poppins_bold"
-                android:maxLines="2"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvDescription1"
-                tools:text="This is the description of the event, which is long enough to be ellipsized."
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:fontFamily="@font/poppins_regular"
-                android:maxLines="5"
-                android:textSize="12sp" />
+        <Button
+            android:id="@+id/btnDelete"
+            style="?attr/materialIconButtonFilledTonalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Delete"
+            app:icon="@drawable/baseline_delete_24"
+            app:layout_constraintBottom_toBottomOf="@+id/savedImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/savedImg" />
 
-        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/ivArrow"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="22dp"
-            android:src="@drawable/icondelete" />
-
-    </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView>
-
+</androidx.cardview.widget.CardView>
