@@ -21,20 +21,16 @@ class ArticleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_article, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Ambil referensi ke MaterialToolbar
         val toolbar: com.google.android.material.appbar.MaterialToolbar = view.findViewById(R.id.toolbar)
 
-        // Atur navigasi kembali (jika diperlukan)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back) // Tambahkan ikon back
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed() // Kembali ke fragment sebelumnya
+            requireActivity().onBackPressed()
         }
 
 

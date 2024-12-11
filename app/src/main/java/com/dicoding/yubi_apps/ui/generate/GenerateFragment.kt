@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.dicoding.yubi_apps.R
 import com.dicoding.yubi_apps.data.api.retrofit.ApiConfig
 import com.dicoding.yubi_apps.data.repository.UploadRepository
 import com.dicoding.yubi_apps.databinding.ActivityMainBinding
@@ -41,35 +42,30 @@ class GenerateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Ambil data yang dikirimkan lewat Bundle
-        val result = arguments?.getString("RESULT_KEY")
-        val imageUriString = arguments?.getString("IMAGE_URI_KEY")
 
-        // Log data yang diterima
-        Log.d("GenerateFragment", "Received result: $result, Image URI: $imageUriString")
+        val bottomNavigationView = requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)
+        bottomNavigationView.visibility = View.GONE
 
-        if (result != null) {
-            binding.textView.text = result
-        } else {
-            binding.textView.text = "No Result Found"
+        val toolbar: com.google.android.material.appbar.MaterialToolbar = view.findViewById(R.id.toolbar)
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
         }
 
-        if (imageUriString != null) {
-            val imageUri = Uri.parse(imageUriString)
-            binding.previewImageView.setImageURI(imageUri)
-        } else {
-            Log.d("GenerateFragment", "Image URI is null.")
-        }
+        val args = GenerateFragmentArgs.fromBundle(requireArguments())
+        val predictedClass = args.RESULTKEY
+        val imageUri = args.IMAGEURIKEY
+
+        binding.textView.text = "predicted_class = ${predictedClass}"
+        binding.previewImageView.setImageURI(Uri.parse(imageUri))
+
     }
 
-//        // Jika ingin tetap mengobservasi uploadResult
-//        viewModel.uploadResult.observe(viewLifecycleOwner) { uploadResult ->
-//            binding.textView.text = "Generated Result: $uploadResult"
-//        }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Hindari memory leak
+        _binding = null
     }
 }

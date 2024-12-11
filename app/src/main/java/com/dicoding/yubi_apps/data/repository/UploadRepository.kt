@@ -8,8 +8,8 @@ import okhttp3.MultipartBody
 open class UploadRepository(
     private val apiService: ApiService
 ) {
-    suspend fun uploadImage(imageFile: MultipartBody.Part): Response {
-        return apiService.uploadImage(imageFile)
+    suspend fun uploadImage(file: MultipartBody.Part): Response {
+        return apiService.uploadImage(file)
     }
 
 }

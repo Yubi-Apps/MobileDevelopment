@@ -10,6 +10,6 @@ interface ApiService {
     @Multipart
     @POST("getPredictionOutput")
     suspend fun uploadImage(
-        @Part imageFile: MultipartBody.Part
+        @Part file: MultipartBody.Part
     ): Response
 }

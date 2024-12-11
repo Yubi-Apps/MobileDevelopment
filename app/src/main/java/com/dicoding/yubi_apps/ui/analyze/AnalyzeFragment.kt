@@ -2,6 +2,7 @@ package com.dicoding.yubi_apps.ui.analyze
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -23,16 +26,50 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import android.Manifest
 
 
 class AnalyzeFragment : Fragment() {
     private var _binding: FragmentAnalyzeBinding? = null
     private val binding get() = _binding!!
     private var uri: Uri? = null
-    // Buat instance repository
+    private var isAnalyzed = false
+
+    private val STORAGE_PERMISSION_CODE = 101
+
     private val repository by lazy { UploadRepository(ApiConfig.getApiService()) }
 
-    // Buat instance ViewModel menggunakan factory
+    private fun checkAndRequestPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                STORAGE_PERMISSION_CODE
+            )
+        }
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private val viewModel: UploadViewModel by lazy {
         val factory = UploadViewModelFactory(repository)
         ViewModelProvider(this, factory)[UploadViewModel::class.java]
@@ -42,7 +79,6 @@ class AnalyzeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate layout menggunakan View Binding
         _binding = FragmentAnalyzeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,149 +86,115 @@ class AnalyzeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Tombol untuk memilih dan mengunggah gambar
+        checkAndRequestPermissions()
+
         binding.galleryButton.setOnClickListener {
             pickImageFromGallery()
         }
-////        // Tambahkan aksi untuk tombol Generate
-//        binding.analyzeButton.setOnClickListener {
-//            generateResult()
-//        }
-        // Tambahkan aksi untuk tombol Generate
+
         binding.analyzeButton.setOnClickListener {
-            if (uri == null) {
-                Toast.makeText(context, "Please select an image first!", Toast.LENGTH_SHORT).show()
+//            if (uri == null) {
+//                Toast.makeText(context, "Please select an image first!", Toast.LENGTH_SHORT).show()
+//            } else {
+//                uploadImageToServer()
+//            }
+            if (isAnalyzed) {
+                Toast.makeText(context, "Analysis already completed!", Toast.LENGTH_SHORT).show()
             } else {
-                findNavController().navigate(R.id.action_analyzeFragment_to_generateFragment,)
-                generateResult()
+                if (uri == null) {
+                    Toast.makeText(context, "Please select an image first!", Toast.LENGTH_SHORT).show()
+                } else {
+                    uploadImageToServer()
+                }
             }
-//            Toast.makeText(context, "Analyze button clicked!", Toast.LENGTH_SHORT).show()
-//            generateResult()
         }
 
-        // Atur toolbar menggunakan binding
         val toolbar = binding.toolbar
-
-        // Atur navigasi kembali
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back) // Tambahkan ikon back
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed() // Kembali ke fragment sebelumnya
+            requireActivity().onBackPressed()
         }
     }
 
     private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
+        }
         startActivityForResult(intent, REQUEST_IMAGE_PICK)
     }
 
-//    private fun getRealPathFromURI(uri: Uri): String? {
-//        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
-//        return cursor?.use {
-//            it.moveToFirst()
-//            val idx = it.getColumnIndex("_data")
-//            it.getString(idx)
-//        } ?: uri.path
-//    }
-private fun getRealPathFromURI(uri: Uri): String? {
-    val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
-    return cursor?.use {
-        if (it.moveToFirst()) {
-            val idx = it.getColumnIndex("_data")
-            if (idx != -1) it.getString(idx) else null
-        } else {
-            null
-        }
-    } ?: uri.path
-}
 
-//    private fun generateResult() {
-//        // Pantau perubahan data pada LiveData uploadResult
-//        viewModel.uploadResult.observe(viewLifecycleOwner) { result ->
-//            if (!result.isNullOrEmpty()) {
-//                // Navigasi ke GenerateFragment menggunakan Navigation
-//                val bundle = Bundle().apply {
-//                    putString("RESULT_KEY", "Generated Result: $result")
-//                }
-//                findNavController().navigate(R.id.action_analyzeFragment_to_generateFragment, bundle)
-//            } else {
-//                // Jika tidak ada hasil, tampilkan pesan kesalahan
-//                Toast.makeText(requireContext(), "No result available", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-private fun generateResult() {
-    viewModel.uploadResult.observe(viewLifecycleOwner) { result ->
-        Log.d("AnalyzeFragment", "Raw Result: $result")
-
-        if (result != null) {
-            val imageUriString = uri?.toString()
-            Log.d("AnalyzeFragment", "Image URI: $imageUriString")
-
-            if (imageUriString != null) {
-                val bundle = Bundle().apply {
-                    putString("RESULT_KEY", result.toString()) // Pastikan konversi ke string
-                    putString("IMAGE_URI_KEY", imageUriString)
-                }
-                findNavController().navigate(R.id.action_analyzeFragment_to_generateFragment, bundle)
+    private fun getRealPathFromURI(uri: Uri): String? {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        return cursor?.use {
+            if (it.moveToFirst()) {
+                val idx = it.getColumnIndex("_data")
+                if (idx != -1) it.getString(idx) else null
             } else {
-                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+                null
+            }
+        } ?: uri.path
+    }
+
+    private fun uploadImageToServer() {
+        if (uri != null) {
+            val inputStream = requireContext().contentResolver.openInputStream(uri!!)
+            if (inputStream != null) {
+                val tempFile = File(requireContext().cacheDir, "temp_image.jpg")
+                tempFile.outputStream().use { outputStream ->
+                    inputStream.copyTo(outputStream)
+                }
+
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), tempFile)
+                val multipartBody = MultipartBody.Part.createFormData("file", tempFile.name, requestFile)
+                viewModel.uploadImage(multipartBody)
+                viewModel.uploadResult.observe(viewLifecycleOwner) { result ->
+                    if (result != null) {
+                        isAnalyzed = true
+                        val action = AnalyzeFragmentDirections
+                            .actionAnalyzeFragmentToGenerateFragment(result.predictedClass, uri.toString())
+                        findNavController().navigate(action)
+                    }
+                }
+
+                viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+                    if (error != null) {
+                        Toast.makeText(context, "Error: $error", Toast.LENGTH_SHORT).show()
+                        Log.e("Upload Error", "Error: $error")
+                    }
+                }
+
+                viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+                    binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                }
+            } else {
+                Toast.makeText(context, "Failed to open file", Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(requireContext(), "Failed to process image", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "No file selected", Toast.LENGTH_SHORT).show()
         }
     }
-}
 
-//    @Deprecated("Deprecated in Java")
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
-//            val uri = data?.data ?: return
-//
-//            // Tampilkan gambar di ImageView
-//            binding.previewImageView.setImageURI(uri)
-//
-//            // Proses file untuk diunggah
-//            val realPath = getRealPathFromURI(uri)
-//            if (realPath != null) {
-//                val file = File(realPath)
-//                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-//                val multipartBody = MultipartBody.Part.createFormData("imageFile", file.name, requestFile)
-//
-//                // Upload gambar
-//                viewModel.uploadImage(multipartBody)
-//                Toast.makeText(context, "Image uploaded successfully!", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(context, "Failed to get file path", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-@Deprecated("Deprecated in Java")
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
-        uri = data?.data // Simpan URI gambar di variabel `uri`
 
-        // Tampilkan gambar di ImageView
-        binding.previewImageView.setImageURI(uri)
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
+            uri = data?.data
+            binding.previewImageView.setImageURI(uri)
 
-        // Proses file untuk diunggah
-        val realPath = getRealPathFromURI(uri!!)
-        if (realPath != null) {
-            val file = File(realPath)
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            val multipartBody = MultipartBody.Part.createFormData("imageFile", file.name, requestFile)
+            uri?.let {
+                requireContext().contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
 
-            // Upload gambar ke server
-            viewModel.uploadImage(multipartBody)
-
-            Toast.makeText(context, "Image uploaded successfully!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(context, "Failed to get file path", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Image selected!", Toast.LENGTH_SHORT).show()
         }
     }
-}
+
 
     companion object {
         private const val REQUEST_IMAGE_PICK = 100
@@ -200,6 +202,6 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Hindari memory leak
+        _binding = null
     }
 }
