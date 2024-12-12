@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.dicoding.yubi_apps.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_analyzeFragment"
+            app:destination="@id/analyzeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.dicoding.yubi_apps.ui.article.ArticleFragment"
+        android:label="ArticleFragment"
+        tools:layout="@layout/fragment_article" />
+
+    <fragment
+        android:id="@+id/analyzeFragment"
+        android:name="com.dicoding.yubi_apps.ui.analyze.AnalyzeFragment"
+        android:label="AnalyzeFragment"
+        tools:layout="@layout/fragment_analyze">
+        <action
+            android:id="@+id/action_analyzeFragment_to_generateFragment"
+            app:destination="@id/generateFragment">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/generateFragment"
+        android:name="com.dicoding.yubi_apps.ui.generate.GenerateFragment"
+        android:label="GenerateFragment"
+        tools:layout="@layout/fragment_generate">
+        <argument
+            android:name="RESULT_KEY"
+            app:argType="string" />
+        <argument
+            android:name="IMAGE_URI_KEY"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_History"
+        android:name="com.dicoding.yubi_apps.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+
+
+
+
+</navigation>
