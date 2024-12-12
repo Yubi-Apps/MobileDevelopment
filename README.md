@@ -20,5 +20,8 @@ We build an application to detect pests that attack tubers so that it can be und
 - **1**: Muhamad Fahmi.
 - **2**: Farhan Desyamfiturohman.
 
+### Reminder
+using Application_Release minimum android version 13
+
 
 ---
