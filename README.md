@@ -9,7 +9,6 @@
 
 - [About the Project](#-about-the-project)
 - [Member Team](#-member-team)
-- [TESTING]
 
 ---
 
